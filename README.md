@@ -1,4 +1,5 @@
-# vertical_timeline
+# Vertical Timeline
+
 Drupal 8 Views style plugin to create a vertical timeline display.
 
 Code based on http://codepen.io/codyhouse/full/FdkEf with some refinements from https://github.com/jasperck/vertical-timeline.
