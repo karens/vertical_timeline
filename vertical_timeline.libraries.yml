@@ -1,0 +1,10 @@
+timeline:
+  css:
+    theme:
+      css/vertical_timeline.css: {}
+  js:
+    js/vertical_timeline.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/modernizr

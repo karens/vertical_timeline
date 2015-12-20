@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Contains vertical_timeline.module..
+ */
+
+/**
+ * Prepares variables for view templates.
+ *
+ * Default template: sna-blocks-view-simplenodearchive.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - view: A ViewExecutable object.
+ *   - rows: The raw row data.
+ *   - options: An array of options. Each option contains:
+ *     - separator: A string to be placed between inline fields to keep them
+ *       visually distinct.
+ */
+function template_preprocess_vertical_timeline_style(&$variables) {
+
+  /** @var \Drupal\views\ViewExecutable $view */
+  $view = $variables['view'];
+  $rows = $variables['rows'];
+  $style = $view->style_plugin;
+  $options = $style->options;
+
+  $variables['options'] = $options;
+
+  foreach ($rows as $id => $row) {
+
+    $field = $options['date'];
+    $date = '';
+    if (isset($view->field[$field])) {
+      $date = $style->getField($id, $field);
+      if ($view->field[$field]->options['label']) {
+        $date = $view->field[$field]->options['label'] . ': ' . $date;
+      }
+      $date = strip_tags(htmlspecialchars_decode($date));
+    }
+    $variables['rows'][$id]['date'] = $date;
+
+    // Set up a random icon, later make this more customizable.
+    $types = array('picture', 'movie', 'location');
+    $i = mt_rand(0, 2);
+    $variables['rows'][$id] += vertical_timeline_icon($types[$i]);
+
+  }
+
+}
+
+function vertical_timeline_icon($type) {
+  $icon = array();
+  switch($type) {
+    case 'picture':
+      $icon['icon'] = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-picture.svg';
+      $icon['icon_alt'] = 'Picture';
+      $icon['icon_class'] = 'cd-picture';
+      break;
+    case 'movie':
+      $icon['icon'] = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-movie.svg';
+      $icon['icon_alt'] = 'Movie';
+      $icon['icon_class'] = 'cd-movie';
+      break;
+    case 'location':
+      $icon['icon'] = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-location.svg';
+      $icon['icon_alt'] = 'Location';
+      $icon['icon_class'] = 'cd-location';
+      break;
+  }
+  return $icon;
+}
