@@ -8,15 +8,15 @@
 {{ attach_library('vertical_timeline/timeline') }}
 
 <div id="cd-timeline-wrapper" class="cssanimations">
-	<section id="cd-timeline" class="cd-container">
+ <section id="cd-timeline" class="cd-container">
 
   {% for row in rows %}
 
-		  <div class="cd-timeline-block">
+    <div class="cd-timeline-block">
 
-			   <div class="cd-timeline-img {{ row.icon_class }}">
+      <div class="cd-timeline-img {{ row.icon_class }}">
         <img src="{{ row.icon }}" alt="{{ row.icon_alt }}">
-			   </div>
+      </div>
 
       <div class="cd-timeline-content">
        {{ row }}
