@@ -4,7 +4,11 @@
 * Template for the vertical timeline style.
 */
 #}
+
+<div class="view-content">
+
   {% for row in rows %}
+
     {% if row.group %}
       <div class="timeline-group grid-item">
         {{ row.group }}
@@ -14,11 +18,11 @@
     <div class="timeline-block grid-item">
       <div class="circle"></div>
       <div class="timeline-content">
-
-       <div class="timeline-inner-content">{{ row }}</div>
+       <div class="timeline-inner-content">{{ row.content }}</div>
       </div>
 
     </div>
 
   {% endfor %}
 
+</div>

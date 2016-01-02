@@ -4,6 +4,7 @@ timeline:
       css/vertical_timeline.css: {}
   js:
     js/vertical_timeline.js: {}
+    /libraries/masonry/masonry.pkgd.min.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once

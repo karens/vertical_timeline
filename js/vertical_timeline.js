@@ -1,29 +1,42 @@
 (function ($) {
+  Drupal.behaviors.VerticalTimelineBehavior = {
+    attach: function (context, settings) {
 
-jQuery(document).ready(function($){
-	var $timeline_block = $('.cd-timeline-block');
+    var container = $('.grid');
 
-	//hide timeline blocks which are outside the viewport
-	$timeline_block.each(function(){
-		if($(this).offset().top > $(window).scrollTop()+$(window).height()*0.75) {
-			$(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
-		}
-	});
+    container.masonry({
+      // use outer width of grid-sizer for columnWidth
+      columnWidth: '.grid-sizer',
+      gutter: '.gutter-sizer',
+      // do not use .grid-sizer in layout
+      itemSelector: '.grid-item',
+      percentPosition: true
+    });
 
-	//on scolling, show/animate timeline blocks when enter the viewport
-	//fadeout/animate timeline when scrollup the viewport
-	$(window).on('scroll', function(){
-		$timeline_block.each(function(){
-			if( $(this).offset().top < $(window).scrollTop()+$(window).height()*0.75 && $(this).find('.cd-timeline-img').is('.is-hidden, .bounce-out') ) {
-                    $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden bounce-out').addClass('bounce-in');
-            }
-			if($(this).offset().top >= $(window).scrollTop()+$(window).height()*0.75 && $(this).find('.cd-timeline-img').is('.bounce-in')) {
-				$(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('bounce-in').addClass('bounce-out');
-			} else if($(this).offset().top >= $(window).scrollTop()+$(window).height()*0.80 && $(this).find('.cd-timeline-img').is('.bounce-out')) {
-				$(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('bounce-out').addClass('is-hidden');
-			}
-		});
-	});
-});
+    container.bind('change', function() {
+      container.masonry('reloadItems');
+      container.masonry();
+    });
+
+    var s = container.find('.grid-item');
+    $.each(s, function(i, obj) {
+      var posLeft = $(obj).css("left");
+      if (posLeft == "0px") {
+        $(obj).addClass('grid-item-left');
+      }
+      else {
+        $(obj).addClass('grid-item-right');
+      }
+    });
+
+  }};
+
+  Drupal.behaviors.infiniteMasonry = {
+    attach: function(context, settings){
+      $('.view .masonry').change(function(e){
+        $(this).masonry('reload');
+      });
+    }
+  };
 
 })(jQuery);

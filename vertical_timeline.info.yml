@@ -3,6 +3,3 @@ type: module
 description: Create vertical timeline pages
 core: 8.x
 package: Date/Time
-
-# Code based on http://codepen.io/codyhouse/full/FdkEf
-# with some refinements from https://github.com/jasperck/vertical-timeline.

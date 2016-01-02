@@ -5,10 +5,99 @@
  * Contains vertical_timeline.module..
  */
 
+use Drupal\views\ViewExecutable;
+use Drupal\Component\Datetime\DateTimePlus;
+use Drupal\Core\Render\Renderer;
+
+/**
+ * Implements hook_theme().
+ */
+function vertical_timeline_theme() {
+  return array(
+    'vertical_timeline_wrapper' => array(
+      'variables' => array('content' => NULL, 'pager' => NULL),
+    ),
+    'vertical_timeline_rows' => array(
+      'variables' => array('rows' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * @see https://www.chapterthree.com/blog/how-create-custom-theme-suggestions-drupal-8
+ */
+function vertical_timeline_theme_suggestions_views_view_alter(&$suggestions, &$vars, $hook) {
+  // Look only for views that use the Vertical Timeline style plugin.
+  if (!empty($vars['view']) && $vars['view']->style_plugin instanceof \Drupal\vertical_timeline\Plugin\views\style\VerticalTimelineStyle) {
+    // Tell the theme system to use a different template instead of the default views_view template.
+    // This template adds markup outside of the area the style plugin can control.
+    $suggestions[] = 'vertical_timeline__vertical_timeline';
+  }
+}
+
+/**
+ * Implements hook_registry_alter().
+ *
+ * Update the theme registry with our theme suggestion. This would not be required
+ * if the template was provided by the theme, but is needed so a module can provide
+ * a template.
+ */
+function vertical_timeline_theme_registry_alter(&$theme_registry) {
+  $path = drupal_get_path('module', 'vertical_timeline');
+  // Duplicate the registry entry for the views_view template.
+  $theme_registry['vertical_timeline__vertical_timeline'] = $theme_registry['views_view'];
+  // Update the entry to indicate that the template is in the module directory, not the theme directory.
+  $theme_registry['vertical_timeline__vertical_timeline']['template'] = 'vertical-timeline--vertical-timeline';
+  $theme_registry['vertical_timeline__vertical_timeline']['path'] = $path . '/templates';
+}
+
+function vertical_timeline_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
+  return;
+  if ($view->id() == 'test_timeline' && $display_id === 'page_1') {
+    dpm(array_keys((array) $view));
+    $prefix = '<div id="timeline-wrapper" class="grid">
+  <div class="grid-sizer"></div>
+  <div class="gutter-sizer"></div>
+  <div id="timeline"></div>';
+
+    $suffix = '</div>';
+
+    dpm($view->attachment_before);
+    return;
+    $options = array(
+      'id' => 'area_text_custom',
+      'table' => 'views',
+      'field' => 'area_text_custom',
+      'relationship' => 'none',
+      'group_type' => 'none',
+      'admin_label' => '',
+      'empty' => TRUE,
+      'tokenize' => FALSE,
+      'content' => $prefix,
+      'plugin_id' => 'text_custom',
+    );
+    $view->setHandler('page_1', 'header', 'area_text_custom', $options);
+
+    $options = array(
+      'id' => 'area_text_custom',
+      'table' => 'views',
+      'field' => 'area_text_custom',
+      'relationship' => 'none',
+      'group_type' => 'none',
+      'admin_label' => '',
+      'empty' => TRUE,
+      'tokenize' => FALSE,
+      'content' => $suffix,
+      'plugin_id' => 'text_custom',
+    );
+    $view->setHandler('page_1', 'footer', 'area_text_custom', $options);
+  }
+}
+
 /**
  * Prepares variables for view templates.
- *
- * Default template: sna-blocks-view-simplenodearchive.html.twig.
  *
  * @param array $variables
  *   An associative array containing:
@@ -19,55 +108,51 @@
  *       visually distinct.
  */
 function template_preprocess_vertical_timeline_style(&$variables) {
-
   /** @var \Drupal\views\ViewExecutable $view */
   $view = $variables['view'];
   $rows = $variables['rows'];
   $style = $view->style_plugin;
   $options = $style->options;
-
   $variables['options'] = $options;
 
-  foreach ($rows as $id => $row) {
+  $prev_group = '';
+  $options['group_heading'] = 'format';
+  $options['group_heading_format'] = 'M Y';
 
-    $field = $options['date'];
+  foreach ($rows as $id => $row) {
+    $field = $options['date_field'];
     $date = '';
     if (isset($view->field[$field])) {
-      $date = $style->getField($id, $field);
-      if ($view->field[$field]->options['label']) {
-        $date = $view->field[$field]->options['label'] . ': ' . $date;
+      $node = $row['#row']->_entity;
+
+      $raw = $node->get($options['date_field'])->value;
+
+      switch ($options['group_heading']) {
+        case 'century':
+          $obj = is_numeric($raw) ? DateTimePlus::createFromTimestamp($raw) : new DateTimePlus($raw);
+          $date = substr($obj->format('Y'), 0, 2) . '00';
+          break;
+        case 'format':
+          $obj = is_numeric($raw) ? DateTimePlus::createFromTimestamp($raw) : new DateTimePlus($raw);
+          $date = $obj->format($options['group_heading_format']);
+          break;
+        case 'date':
+          $date = $style->getField($id, $field);
+          $date = strip_tags(htmlspecialchars_decode($date));
+          //$date = \Drupal::service('renderer')->render($date);
+          break;
+        default:
+          $date = NULL;
+          break;
       }
-      $date = strip_tags(htmlspecialchars_decode($date));
+
+      $group = $date;
+      if ($group != $prev_group) {
+        $variables['rows'][$id]['group'] = $date;
+      }
+      $prev_group = $group;
+
     }
-    $variables['rows'][$id]['date'] = $date;
-
-    // Set up a random icon, later make this more customizable.
-    $types = array('picture', 'movie', 'location');
-    $i = mt_rand(0, 2);
-    $variables['rows'][$id] += vertical_timeline_icon($types[$i]);
 
   }
-
-}
-
-function vertical_timeline_icon($type) {
-  $icon = array();
-  switch($type) {
-    case 'picture':
-      $icon['icon'] = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-picture.svg';
-      $icon['icon_alt'] = 'Picture';
-      $icon['icon_class'] = 'cd-picture';
-      break;
-    case 'movie':
-      $icon['icon'] = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-movie.svg';
-      $icon['icon_alt'] = 'Movie';
-      $icon['icon_class'] = 'cd-movie';
-      break;
-    case 'location':
-      $icon['icon'] = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-location.svg';
-      $icon['icon_alt'] = 'Location';
-      $icon['icon_class'] = 'cd-location';
-      break;
-  }
-  return $icon;
 }

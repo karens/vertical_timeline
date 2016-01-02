@@ -1,10 +1,36 @@
-# Vertical Timeline
+# Vertical Timeline for Drupal 8
 
-Drupal 8 Views style plugin to create a vertical timeline display.
+The inspiration for this timeline is at: http://www.websterhall.com/timeline/. The final solution borrows ideas from lots of sources
+to create a responsive, infinitely scrolling, vertical timeline that takes up two columns on large screens and collapses down to a
+single column on small screens. It uses MasonryJS rather than a standard grid layout to keep the source order right but fill in the
+gaps in the two column timeline when the content is irregularly sized. Most effects are pure css.
 
-Code based on http://codepen.io/codyhouse/full/FdkEf with some refinements from https://github.com/jasperck/vertical-timeline.
+Requirements:
+- MasonryJS
+  Download from and place in /libraries/masonry
 
-To use, create a new view using the Vertical Timeline style. Include a date field to label the timeline node but exclude it from the view.
-Set up all other fields formatted and ordered as desired to display them in the timeline entry. Example view included.
 
-Lots of things could be done to jazz this up. Currently the timeline icons are just randomly assigned, for instance.
+FAQ
+
+
+
+
+Credits:
+
+The original inspiration:
+http://www.websterhall.com/timeline/
+
+A starting point for a basic, responsive, two column vertical timeline:
+http://codepen.io/codyhouse/full/FdkEf
+
+Adding MasonryJS to fill in irregularly sized items in the two column layout:
+http://masonry.desandro.com/
+
+Adding dynamic classes that correspond to their current masonry position:
+http://www.9lessons.info/2012/01/facebook-timeline-design-using-jquery.html
+
+Borrowing ideas from D7 for custom queries, paging and infinite scrolling:
+http://thinkshout.com/blog/2014/06/creating-an-infinite-scroll-masonry-block-without-views/
+
+Creating CSS-only callouts and circles:
+https://css-tricks.com/snippets/css/css-triangle/

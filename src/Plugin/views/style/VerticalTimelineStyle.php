@@ -54,7 +54,9 @@ class VerticalTimelineStyle extends StylePluginBase {
   protected function defineOptions() {
     $options = parent::defineOptions();
 
-    $options['date'] = array('default' => '');
+    $options['date_field'] = array('default' => '');
+    $options['group_heading'] = array('default' => '');
+    $options['group_heading_format'] = array('default' => '');
 
     return $options;
   }
@@ -69,12 +71,25 @@ class VerticalTimelineStyle extends StylePluginBase {
     $field_labels = $this->displayHandler->getFieldLabels(TRUE);
     $options += $field_labels;
 
-    $form['date'] = array(
+    $form['date_field'] = array(
       '#type' => 'select',
       '#title' => $this->t('Date'),
       '#options' => $options,
-      '#default_value' => $this->options['date'],
-      '#description' => $this->t('Choose the date field.'),
+      '#default_value' => $this->options['date_field'],
+      '#description' => $this->t('The field name of the date field that will be used as the date on the timeline.'),
+    );
+    $form['group_heading'] = array(
+      '#type' => 'select',
+      '#title' => $this->t('Group heading'),
+      '#options' => array('' => $this->t('No Heading'), 'century' => $this->t('Century'), 'date' => $this->t('Full Date'), 'format' => $this->t('Custom Format')),
+      '#description' => $this->t('The type of date heading to add to the timeline. This heading will be inserted at the first spot where the value of the heading changes.'),
+      '#default_value' => $this->options['group_heading'],
+    );
+    $form['group_heading_format'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Group heading format'),
+      '#description' => $this->t("If 'Custom Format' was selected above, input the format string to use for the date heading, using the formats from http://php.net/manual/en/function.date.php. For instance, 'M Y' will display a heading over all items with the same month and year, formatted as 'Jan 2016'."),
+      '#default_value' => $this->options['group_heading_format'],
     );
 
   }
