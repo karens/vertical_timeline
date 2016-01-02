@@ -63,10 +63,13 @@ function template_preprocess_vertical_timeline_style(&$variables) {
     $field = $options['date_field'];
     $date = '';
     if (isset($view->field[$field])) {
-      $node = $row['#row']->_entity;
 
+      // Create the group header, when required, and insert it into the rows array.
+
+      $node = $row['#row']->_entity;
       $raw = $node->get($options['date_field'])->value;
 
+      // Massage the date into the format required by the header.
       switch ($options['group_heading']) {
         case 'century':
           $obj = is_numeric($raw) ? DateTimePlus::createFromTimestamp($raw) : new DateTimePlus($raw);
@@ -86,6 +89,7 @@ function template_preprocess_vertical_timeline_style(&$variables) {
           break;
       }
 
+      // See if this is a new header, different than the previous one.
       $group = $date;
       if ($group != $prev_group) {
         $variables['rows'][$id]['group'] = $date;
