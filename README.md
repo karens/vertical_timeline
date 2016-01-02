@@ -5,21 +5,22 @@ to create a responsive, infinitely scrolling, vertical timeline that takes up tw
 single column on small screens. It uses MasonryJS rather than a standard grid layout to keep the source order right but fill in the
 gaps in the two column timeline when the content is irregularly sized. Most effects are pure css.
 
-## Requirements:
+## Requirements
 - MasonryJS (http://masonry.desandro.com/)
   Download from http://masonry.desandro.com/ and place in /libraries/masonry.
-## Suggested:
+
+## Suggested
 - Views Infinite Scroll (https://www.drupal.org/project/views_infinite_scroll).
   Ignore the instructions about downloading the autopager library, that is no longer needed.
 
-## To try this out:
+## To try this out
 
 - Download MasonryJS from http://masonry.desandro.com/ and place in /libraries/masonry.
 - Download Views Infinite Scroll from https://www.drupal.org/project/views_infinite_scroll and enable it.
 - Download and enable this module.
 - You will see an example timeline in Views called Test Timeline that provides a vertical timeline view of articles. You can adjust it to your needs, or use it as an example.
 
-## Credits:
+## Credits
 
 The original inspiration:
 http://www.websterhall.com/timeline/
