@@ -3,7 +3,8 @@
 The inspiration for this timeline is at: http://www.websterhall.com/timeline/. The final solution borrows ideas from lots of sources
 to create a responsive, infinitely scrolling, vertical timeline that takes up two columns on large screens and collapses down to a
 single column on small screens. It uses MasonryJS rather than a standard grid layout to keep the source order right but fill in the
-gaps in the two column timeline when the content is irregularly sized. Most effects are pure css.
+gaps in the two column timeline when the content is irregularly sized. Most effects are pure css, like the zoom effect when you hover
+over a timeline item.
 
 ## Requirements
 - MasonryJS (http://masonry.desandro.com/)
@@ -39,3 +40,6 @@ http://thinkshout.com/blog/2014/06/creating-an-infinite-scroll-masonry-block-wit
 
 Creating CSS-only callouts and circles:
 https://css-tricks.com/snippets/css/css-triangle/
+
+CSS-only modal window effect on hover:
+https://css-tricks.com/snippets/css/scale-on-hover-with-webkit-transition/
