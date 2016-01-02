@@ -14,7 +14,6 @@
   background-color: #e9f0f5;
 }
 .grid-item {
-  background-color: #fff;
   position: relative;
   margin: 2% 1% 0% 1%;
   padding: 0;
@@ -23,6 +22,13 @@
 div.grid>div:nth-child(5) {
   margin-top: 4%;
 }
+
+.timeline-block {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 0.5em;
+  box-shadow: 0 3px 0 #d7e4ed;
+}
+
 .timeline-content {
   margin: 0;
   padding: 0 2% 2% 2%;
@@ -30,15 +36,15 @@ div.grid>div:nth-child(5) {
 .timeline-date {
   font-size: larger;
   font-weight: bold;
-  margin: 12px 0 0 0;
+  margin: 5px 0 0 0;
   padding: 0;
 }
 .timeline-inner-content {
-  padding: 0;
+  padding: 10px 10px 0 10px;
   margin: -3% 0 0 0;
 }
 .timeline-group {
-  min-height: 24px;
+  min-height: 10px;
   vertical-align: middle;
   font-size: x-large;
   font-weight: bold;
@@ -69,20 +75,20 @@ div.grid>div:nth-child(5) {
   position: absolute;
   width: 0;
   height: 0;
-  border-top: 24px solid transparent;
-  border-bottom: 24px solid transparent;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
   z-index: 100;
 }
 
 /* Create the circle marker on the timeline */
 .circle {
   content: ' ';
-  width: 12px;
-  height: 12px;
+  width: 5px;
+  height: 5px;
   display: block;
   position: absolute;
   border-radius: 50%;
-  background-color: #d7e4ed;
+  background-color: #999;
 }
 
 /* Small screen-only adjustments */
@@ -93,7 +99,7 @@ div.grid>div:nth-child(5) {
   }
   /* Move timeline to the left in narrow screens */
   #timeline::before {
-    left: 10px;
+    left: 17px;
   }
 
   /* 1 column by default */
@@ -109,20 +115,20 @@ div.grid>div:nth-child(5) {
   .grid-item-right::before,
   .grid-item-left::before {
     top: 0;
-    left: -24px;
-  	 border-right:24px solid white;
+    left: -10px;
+  	 border-right:10px solid white;
   }
 
   .grid-item-right .circle,
   .grid-item-left .circle {
-    left: -28px;
-    top: 20px;
+    left: -15px;
+    top: 8px;
   }
 
   /* Eliminate arrows on group headers */
   .timeline-group.grid-item-right::before,
   .timeline-group.grid-item-left::before {
-    border-right:24px solid transparent;
+    border-right:10px solid transparent;
   }
 
 }
@@ -133,47 +139,47 @@ div.grid>div:nth-child(5) {
   /* 2 columns for larger screens */
   .grid-sizer,
   .grid-item {
-    width: 47%;
+    width: 48%;
   }
   .gutter-sizer {
-    width: 48px;
+    width: 30px;
   }
   .grid-item-right {
-    margin-left: 12px;
+    margin-left: 5px;
   }
   .grid-item-left {
-    margin-right: 24px;
+    margin-right: 10px;
   }
   /* Right arrow */
   .grid-item-left::before {
     top: 0;
-    right: -24px;
-  	 border-left: 24px solid white;
+    right: -10px;
+  	 border-left: 10px solid white;
   }
 
   /* Left arrow */
   .grid-item-right::before {
     top: 0;
-    left: -24px;
-  	 border-right:24px solid white;
+    left: -10px;
+  	 border-right:10px solid white;
   }
 
   /* Eliminate arrows on group headers */
   .timeline-group.grid-item-right::before {
-    border-right:24px solid transparent;
+    border-right:10px solid transparent;
   }
   .timeline-group.grid-item-left::before {
-    border-left:24px solid transparent;
+    border-left:10px solid transparent;
   }
 
   /* Slide circles over to the timeline */
   .grid-item-right .circle {
-    left: -28px;
-    top: 20px;
+    left: -15px;
+    top: 8px;
   }
   .grid-item-left .circle {
-    right: -28px;
-    top: 20px;
+    right: -15px;
+    top: 8px;
   }
 
   /* Move timeline to the center in wide screens */

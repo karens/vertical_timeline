@@ -7,7 +7,7 @@ gaps in the two column timeline when the content is irregularly sized. Most effe
 
 Requirements:
 - MasonryJS
-  Download from and place in /libraries/masonry
+  Download from http://masonry.desandro.com/ and place in /libraries/masonry
 
 
 FAQ
