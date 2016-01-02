@@ -6,6 +6,8 @@ single column on small screens. It uses MasonryJS rather than a standard grid la
 gaps in the two column timeline when the content is irregularly sized. Most effects are pure css, like the zoom effect when you hover
 over a timeline item.
 
+See a demo of the work in progress at http://www.karen-stevenson.com/test-timeline.
+
 ## Requirements
 - MasonryJS (http://masonry.desandro.com/)
   Download from http://masonry.desandro.com/ and place in /libraries/masonry.
