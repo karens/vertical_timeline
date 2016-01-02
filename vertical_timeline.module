@@ -7,26 +7,9 @@
 
 use Drupal\views\ViewExecutable;
 use Drupal\Component\Datetime\DateTimePlus;
-use Drupal\Core\Render\Renderer;
-
-/**
- * Implements hook_theme().
- */
-function vertical_timeline_theme() {
-  return array(
-    'vertical_timeline_wrapper' => array(
-      'variables' => array('content' => NULL, 'pager' => NULL),
-    ),
-    'vertical_timeline_rows' => array(
-      'variables' => array('rows' => NULL),
-    ),
-  );
-}
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
- *
- * @see https://www.chapterthree.com/blog/how-create-custom-theme-suggestions-drupal-8
  */
 function vertical_timeline_theme_suggestions_views_view_alter(&$suggestions, &$vars, $hook) {
   // Look only for views that use the Vertical Timeline style plugin.
@@ -51,49 +34,6 @@ function vertical_timeline_theme_registry_alter(&$theme_registry) {
   // Update the entry to indicate that the template is in the module directory, not the theme directory.
   $theme_registry['vertical_timeline__vertical_timeline']['template'] = 'vertical-timeline--vertical-timeline';
   $theme_registry['vertical_timeline__vertical_timeline']['path'] = $path . '/templates';
-}
-
-function vertical_timeline_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
-  return;
-  if ($view->id() == 'test_timeline' && $display_id === 'page_1') {
-    dpm(array_keys((array) $view));
-    $prefix = '<div id="timeline-wrapper" class="grid">
-  <div class="grid-sizer"></div>
-  <div class="gutter-sizer"></div>
-  <div id="timeline"></div>';
-
-    $suffix = '</div>';
-
-    dpm($view->attachment_before);
-    return;
-    $options = array(
-      'id' => 'area_text_custom',
-      'table' => 'views',
-      'field' => 'area_text_custom',
-      'relationship' => 'none',
-      'group_type' => 'none',
-      'admin_label' => '',
-      'empty' => TRUE,
-      'tokenize' => FALSE,
-      'content' => $prefix,
-      'plugin_id' => 'text_custom',
-    );
-    $view->setHandler('page_1', 'header', 'area_text_custom', $options);
-
-    $options = array(
-      'id' => 'area_text_custom',
-      'table' => 'views',
-      'field' => 'area_text_custom',
-      'relationship' => 'none',
-      'group_type' => 'none',
-      'admin_label' => '',
-      'empty' => TRUE,
-      'tokenize' => FALSE,
-      'content' => $suffix,
-      'plugin_id' => 'text_custom',
-    );
-    $view->setHandler('page_1', 'footer', 'area_text_custom', $options);
-  }
 }
 
 /**
