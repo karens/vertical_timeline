@@ -106,6 +106,7 @@ class VerticalTimelineStyle extends StylePluginBase {
     $rows = array();
     $options = $this->options;
     $field = $options['date_field'];
+    $prev_group = '';
 
     foreach ($this->view->result as $row_index => $row) {
       $this->view->row_index = $row_index;
@@ -142,7 +143,10 @@ class VerticalTimelineStyle extends StylePluginBase {
         // See if this is a new header, different than the previous one.
         $group = $date;
         if ($group != $prev_group) {
-          $row['group'] = $date;
+          $row['group'] = [
+            '#type' => 'markup',
+            '#markup' => $date,
+          ];
         }
 
         $prev_group = $group;

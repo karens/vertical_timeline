@@ -9,7 +9,6 @@ dependencies:
     - text
     - user
     - vertical_timeline
-    - views_infinite_scroll
 id: test_timeline
 label: 'Test Timeline'
 module: views
