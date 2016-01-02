@@ -3,6 +3,7 @@ namespace Drupal\vertical_timeline\Plugin\views\style;
 
 use Drupal\views\Plugin\views\style\StylePluginBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Datetime\DateTimePlus;
 
 /**
  * Style plugin for the timeline view.
@@ -93,5 +94,72 @@ class VerticalTimelineStyle extends StylePluginBase {
     );
 
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function render() {
+    if (empty($this->view->rowPlugin)) {
+      debug('Drupal\views\Plugin\views\style\VerticalTimeline: Missing row plugin');
+      return;
+    }
+    $rows = array();
+    $options = $this->options;
+    $field = $options['date_field'];
+
+    foreach ($this->view->result as $row_index => $row) {
+      $this->view->row_index = $row_index;
+      $row = $this->view->rowPlugin->render($row);
+
+
+      $date = '';
+      if (isset($this->view->field[$field])) {
+
+        // Create the group header, when required, and insert it into the rows array.
+
+        $node = $row['#row']->_entity;
+        $raw = $node->get($options['date_field'])->value;
+        // Massage the date into the format required by the header.
+        switch ($options['group_heading']) {
+          case 'century':
+            $obj = is_numeric($raw) ? DateTimePlus::createFromTimestamp($raw) : new DateTimePlus($raw);
+            $date = substr($obj->format('Y'), 0, 2) . '00';
+            break;
+          case 'format':
+            $obj = is_numeric($raw) ? DateTimePlus::createFromTimestamp($raw) : new DateTimePlus($raw);
+            $date = $obj->format($options['group_heading_format']);
+            break;
+          case 'date':
+            $date = $style->getField($id, $field);
+            $date = strip_tags(htmlspecialchars_decode($date));
+            //$date = \Drupal::service('renderer')->render($date);
+            break;
+          default:
+            $date = NULL;
+            break;
+        }
+
+        // See if this is a new header, different than the previous one.
+        $group = $date;
+        if ($group != $prev_group) {
+          $row['group'] = $date;
+        }
+
+        $prev_group = $group;
+      }
+
+      $rows[] = $row;
+    }
+
+    $build = array(
+      '#theme' => $this->themeFunctions(),
+      '#view' => $this->view,
+      '#options' => $this->options,
+      '#rows' => $rows,
+    );
+    unset($this->view->row_index);
+    return $build;
+  }
+
 
 }
