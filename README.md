@@ -8,7 +8,10 @@ over a timeline item.
 
 See a demo of the work in progress at http://www.karen-stevenson.com/test-timeline.
 
-## Requirements
+## Known Issues
+The last item on the timeline gets squashed into the item before it. Cannot figure out why.
+
+## Required
 - MasonryJS (http://masonry.desandro.com/)
   Download from http://masonry.desandro.com/ and place in /libraries/masonry.
 
@@ -34,7 +37,7 @@ http://codepen.io/codyhouse/full/FdkEf
 Adding MasonryJS to fill in irregularly sized items in the two column layout:
 http://masonry.desandro.com/
 
-Adding dynamic classes that correspond to their current masonry position:
+Adding dynamic classes that correspond to their current masonry position, so css can target left and right items differently:
 http://www.9lessons.info/2012/01/facebook-timeline-design-using-jquery.html
 
 Borrowing ideas from D7 for custom queries, paging and infinite scrolling:
@@ -45,3 +48,4 @@ https://css-tricks.com/snippets/css/css-triangle/
 
 CSS-only modal window effect on hover:
 https://css-tricks.com/snippets/css/scale-on-hover-with-webkit-transition/
+https://css-tricks.com/almanac/properties/t/transition-delay/

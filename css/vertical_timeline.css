@@ -6,12 +6,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Force reliable box sizing across browsers */
 .timeline-wrapper *, *:after, *:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
+/* These are Masonry divs that are used to control element sizes, hide them */
 .grid-sizer,
 .gutter-sizer {
   height: 0;
@@ -31,26 +33,24 @@ div.grid>div:nth-child(5) {
   margin-top: 4%;
 }
 
+/* Basic styling for the item wrapper */
 .timeline-block {
   background: #ffffff none repeat scroll 0 0;
   border-radius: 0.5em;
   box-shadow: 0 3px 0 #d7e4ed;
 }
-
+/* Basic styling for the item content */
 .timeline-content {
   margin: 0;
   padding: 0 2% 2% 2%;
 }
-.timeline-date {
-  font-size: larger;
-  font-weight: bold;
-  margin: 5px 0 0 0;
-  padding: 0;
-}
+/* Inner content styling provides padding */
 .timeline-inner-content {
   padding: 10px 10px 0 10px;
   margin: -3% 0 0 0;
 }
+
+/* Styling for the date group headers */
 .timeline-group {
   min-height: 10px;
   vertical-align: middle;
@@ -60,12 +60,10 @@ div.grid>div:nth-child(5) {
   margin-top: 4%;
 }
 
-
-/* Set up vertical timeline line */
+/* Stying for the vertical timeline line */
 #timeline {
   height: 100%;
 }
-
 #timeline::before {
   content: '';
   position: absolute;
@@ -88,7 +86,7 @@ div.grid>div:nth-child(5) {
   z-index: 100;
 }
 
-/* Create the circle marker on the timeline */
+/* Style the circle marker on the timeline */
 .circle {
   content: ' ';
   width: 5px;
@@ -124,9 +122,9 @@ div.grid>div:nth-child(5) {
   .grid-item-left::before {
     top: 0;
     left: -10px;
-  	 border-right:10px solid white;
+    border-right:10px solid white;
   }
-
+  /* Position the circles on the line */
   .grid-item-right .circle,
   .grid-item-left .circle {
     left: -15px;
@@ -162,14 +160,14 @@ div.grid>div:nth-child(5) {
   .grid-item-left::before {
     top: 0;
     right: -10px;
-  	 border-left: 10px solid white;
+    border-left: 10px solid white;
   }
 
   /* Left arrow */
   .grid-item-right::before {
     top: 0;
     left: -10px;
-  	 border-right:10px solid white;
+    border-right:10px solid white;
   }
 
   /* Eliminate arrows on group headers */
@@ -199,38 +197,54 @@ div.grid>div:nth-child(5) {
   .grid-item-left {
     text-align: right;
   }
-
-
 }
 
 /* Add 'modal' effect when hoving over an item at desktop sizes */
 @media screen and (min-width: 920px) {
 
   .timeline-content {
+    /* Smooth the transitions */
     transition: all .5s ease;
     z-index: inherit !important;
   }
   .timeline-content:hover {
-    -webkit-transition-delay: 1s; /* Safari */
-    transition-delay: 1s;
+    /* Add a delay so it won't happen when just scrolling down the timeline */
+    -webkit-transition-delay:1s;
+    -moz-transition-delay:1s;
+    -o-transition-delay:1s;
+    transition-delay:1s;
+
+    /* Zoom in on hover */
     transform: scale(1.3);
+
+    /* Add some styling to make the zoomed item stand out from the background */
     background: #ffffff none repeat scroll 0 0;
     border-radius: 0.5em;
     border: 1px #d7e4ed solid;
     box-shadow: 0 3px 0 #999;
-    z-index: 100 !important;
+
+    /* Make sure it stays on top of everything else on the page */
+    z-index: 1000 !important;
     position: absolute;
   }
   .grid-item-left .timeline-content:hover {
-    -webkit-transition-delay: 1s; /* Safari */
-    transition-delay: 1s;
+    /* Add a delay so it won't happen when just scrolling down the timeline */
+    -webkit-transition-delay:1s;
+    -moz-transition-delay:1s;
+    -o-transition-delay:1s;
+    transition-delay:1s;
+
     margin-left: 25%;
     margin-right: -25%;
   }
 
   .grid-item-right .timeline-content:hover {
-    -webkit-transition-delay: 1s; /* Safari */
-    transition-delay: 1s;
+    /* Add a delay so it won't happen when just scrolling down the timeline */
+    -webkit-transition-delay:1s;
+    -moz-transition-delay:1s;
+    -o-transition-delay:1s;
+    transition-delay:1s;
+
     margin-right: 25%;
     margin-left: -25%;
   }
