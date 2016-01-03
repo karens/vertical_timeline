@@ -207,10 +207,12 @@ div.grid>div:nth-child(5) {
 @media screen and (min-width: 920px) {
 
   .timeline-content {
-    transition: all 0.5s ease;
+    transition: all .5s ease;
     z-index: inherit !important;
   }
   .timeline-content:hover {
+    -webkit-transition-delay: 1s; /* Safari */
+    transition-delay: 1s;
     transform: scale(1.3);
     background: #ffffff none repeat scroll 0 0;
     border-radius: 0.5em;
@@ -220,11 +222,15 @@ div.grid>div:nth-child(5) {
     position: absolute;
   }
   .grid-item-left .timeline-content:hover {
+    -webkit-transition-delay: 1s; /* Safari */
+    transition-delay: 1s;
     margin-left: 25%;
     margin-right: -25%;
   }
 
   .grid-item-right .timeline-content:hover {
+    -webkit-transition-delay: 1s; /* Safari */
+    transition-delay: 1s;
     margin-right: 25%;
     margin-left: -25%;
   }
