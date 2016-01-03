@@ -28,10 +28,6 @@
   margin: 2% 1% 0% 1%;
   padding: 0;
 }
-/* Adjust the margin top so we won't end up with first and second exactly even */
-div.grid>div:nth-child(5) {
-  margin-top: 4%;
-}
 
 /* Basic styling for the item wrapper */
 .timeline-block {

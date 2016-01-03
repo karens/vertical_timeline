@@ -8,9 +8,6 @@ over a timeline item.
 
 See a demo of the work in progress at http://www.karen-stevenson.com/test-timeline.
 
-## Known Issues
-The last item on the timeline gets squashed into the item before it. Cannot figure out why.
-
 ## Required
 - MasonryJS (http://masonry.desandro.com/)
   Download from http://masonry.desandro.com/ and place in /libraries/masonry.
