@@ -205,10 +205,10 @@
   }
   .timeline-content:hover {
     /* Add a delay so it won't happen when just scrolling down the timeline */
-    -webkit-transition-delay:1s;
-    -moz-transition-delay:1s;
-    -o-transition-delay:1s;
-    transition-delay:1s;
+    -webkit-transition-delay:.5s;
+    -moz-transition-delay:.5s;
+    -o-transition-delay:.5s;
+    transition-delay:.5s;
 
     /* Zoom in on hover */
     transform: scale(1.3);
@@ -225,10 +225,10 @@
   }
   .grid-item-left .timeline-content:hover {
     /* Add a delay so it won't happen when just scrolling down the timeline */
-    -webkit-transition-delay:1s;
-    -moz-transition-delay:1s;
-    -o-transition-delay:1s;
-    transition-delay:1s;
+    -webkit-transition-delay:.5s;
+    -moz-transition-delay:.5s;
+    -o-transition-delay:.5s;
+    transition-delay:.5s;
 
     margin-left: 25%;
     margin-right: -25%;
@@ -236,10 +236,10 @@
 
   .grid-item-right .timeline-content:hover {
     /* Add a delay so it won't happen when just scrolling down the timeline */
-    -webkit-transition-delay:1s;
-    -moz-transition-delay:1s;
-    -o-transition-delay:1s;
-    transition-delay:1s;
+    -webkit-transition-delay:.5s;
+    -moz-transition-delay:.5s;
+    -o-transition-delay:.5s;
+    transition-delay:.5s;
 
     margin-right: 25%;
     margin-left: -25%;
