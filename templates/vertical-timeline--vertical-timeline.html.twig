@@ -63,7 +63,10 @@
 
 {# Start vertical timeline prefix #}
 
-{{ attach_library('vertical_timeline/timeline') }}
+{# Attach only if not a preview, title is populated on preview #}
+{% if title is empty %}
+  {{ attach_library('vertical_timeline/timeline') }}
+{% endif %}
 
 <div id="timeline-wrapper" class="grid">
   <div class="grid-sizer"></div>

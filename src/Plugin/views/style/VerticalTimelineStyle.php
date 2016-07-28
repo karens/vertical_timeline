@@ -103,6 +103,12 @@ class VerticalTimelineStyle extends StylePluginBase {
       debug('Drupal\views\Plugin\views\style\VerticalTimeline: Missing row plugin');
       return;
     }
+
+    // If anything needs to be different in preview, do it here.
+    if (!empty($this->view->live_preview)) {
+      //return;
+    }
+
     $rows = array();
     $options = $this->options;
     $field = $options['date_field'];
