@@ -18,7 +18,7 @@
   "config": {
     "component-dir": "libraries",
     "component-baseurl": "/libraries"
-  }
+  },
   "suggest": {
   }
 }
