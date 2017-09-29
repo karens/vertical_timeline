@@ -41,6 +41,10 @@ Add the following to your ```composer.json``` file:
 ```
 Then run ```composer require karens/vertical_timeline```
 
+This will download this module and its dependencies, and move any required javascript libraries (components) to a ```/libraries``` folder in your installation.
+
+If you type ```composer require karens/vertical_timeline --prefer-dist```, you'll get a tarball of this module, if you type ```composer require karens/vertical_timeline --prefer-source```, you'll get a git checkout.
+
 ## Credits
 
 The original inspiration:
