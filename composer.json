@@ -1,5 +1,5 @@
 {
-  "name": "drupal/vertical_timeline",
+  "name": "karens/vertical_timeline",
   "type": "drupal-module",
   "description": "Display a responsive vertical timelines in Views using Masonry, with configurable grouping options.",
   "keywords": ["Drupal"],
