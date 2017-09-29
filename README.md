@@ -11,8 +11,6 @@ See a demo of the work in progress at http://www.karen-stevenson.com/test-timeli
 ## Required
 - MasonryJS (http://masonry.desandro.com/)
   Download from http://masonry.desandro.com/ and place in /libraries/masonry.
-
-## Suggested
 - Views Infinite Scroll (https://www.drupal.org/project/views_infinite_scroll).
   Ignore the instructions about downloading the autopager library, that is no longer needed.
 
@@ -22,6 +20,26 @@ See a demo of the work in progress at http://www.karen-stevenson.com/test-timeli
 - Download Views Infinite Scroll from https://www.drupal.org/project/views_infinite_scroll and enable it.
 - Download and enable this module.
 - You will see an example timeline in Views called Test Timeline that provides a vertical timeline view of articles. You can adjust it to your needs, or use it as an example.
+
+## Alternate Composer installation
+Add the following to your ```composer.json``` file:
+
+```
+    "require": {
+        "robloach/component-installer": "*"
+    },
+    "config": {
+        "component-dir": "libraries",
+        "component-baseurl": "/libraries"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/karens/vertical_timeline.git"
+        }
+    ]
+```
+Then run ```composer require karens/vertical_timeline```
 
 ## Credits
 
