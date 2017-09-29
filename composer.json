@@ -3,17 +3,9 @@
   "type": "drupal-module",
   "description": "Display a responsive vertical timelines in Views using Masonry, with configurable grouping options.",
   "keywords": ["Drupal"],
-  "license": "GPL-2.0+",
   "homepage": "https://github.com/karens/vertical_timeline",
-  "minimum-stability": "dev",
-  "support": {
-    "issues": "https://www.drupal.org/project/issues/vertical_timeline",
-    "source": "http://cgit.drupalcode.org/vertical_timeline"
-  },
   "require": {
     "components/masonry": "^4.2",
     "drupal/views_infinite_scroll": "^1.5"
-  },
-  "suggest": {
   }
 }
