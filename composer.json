@@ -11,9 +11,9 @@
     "source": "http://cgit.drupalcode.org/vertical_timeline"
   },
   "require": {
-    "robloach/component-installer": "*",
     "components/masonry": "^4.2",
     "drupal/views_infinite_scroll": "^1.5"
+    "robloach/component-installer": "*",
   },
   "config": {
     "component-dir": "libraries",
