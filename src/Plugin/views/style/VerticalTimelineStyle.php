@@ -111,21 +111,37 @@ class VerticalTimelineStyle extends StylePluginBase {
 
     $rows = array();
     $options = $this->options;
-    $field = $options['date_field'];
+    $field_name = $options['date_field'];
     $prev_group = '';
 
     foreach ($this->view->result as $row_index => $row) {
       $this->view->row_index = $row_index;
       $row = $this->view->rowPlugin->render($row);
 
-
       $date = '';
-      if (isset($this->view->field[$field])) {
+      if (isset($this->view->field[$field_name])) {
 
         // Create the group header, when required, and insert it into the rows array.
 
-        $node = $row['#row']->_entity;
-        $raw = $node->get($options['date_field'])->value;
+        $entity = $row['#row']->_entity;
+        if ($entity->hasField($field_name)) {
+          $raw = $entity->get($field_name)->value;
+        }
+        else {
+          // If the date field doesn't exist on the entity, check relationships.
+          $relationships = $row['#row']->_relationship_entities;
+          foreach ($relationships as $relationship) {
+            if ($relationship->hasField($field_name)) {
+              $raw = $relationship->get($field_name)->value;
+              break;
+            }
+          }
+        }
+        // If no date was found, this row can't be processed.
+        if (empty($raw)) {
+          break;
+        }
+
         // Massage the date into the format required by the header.
         switch ($options['group_heading']) {
           case 'century':
@@ -137,7 +153,8 @@ class VerticalTimelineStyle extends StylePluginBase {
             $date = $obj->format($options['group_heading_format']);
             break;
           case 'date':
-            $date = $style->getField($id, $field);
+            //$date = $raw;
+            $date = $this->getField($row_index, $field_name);
             $date = strip_tags(htmlspecialchars_decode($date));
             //$date = \Drupal::service('renderer')->render($date);
             break;
@@ -173,3 +190,4 @@ class VerticalTimelineStyle extends StylePluginBase {
 
 
 }
+
