@@ -2,6 +2,6 @@ name: Vertical Timeline
 type: module
 description: Create vertical timeline pages
 core: 8.x
-package: Date/Time
+package: KarenS
 dependencies:
   - views_infinite_scroll
